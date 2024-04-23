@@ -1,0 +1,31 @@
+# ifndef HTTP_CODES_HPP
+# define HTTP_CODES_HPP
+
+# define HTTP_VERSION_SUPPORTED "HTTP/1.1"
+
+enum    HttpMethod
+{
+    _GET,
+    _POST,
+    _DELETE,
+    _METHOD_NOT_SET
+};
+
+enum    HttpCode
+{
+    _CODE_NOT_SET,
+    _OK = 200,
+    _NO_CONTENT = 204,
+    _BAD_REQUEST = 400,
+    _FORBIDDEN = 403,
+    _NOT_FOUND = 404,
+    _METHOD_NOT_ALLOWED = 405,
+    _REQUEST_TIMEOUT = 408,
+    _PAYLOAD_TOO_LARGE = 413,
+    _INTERNAL_SERVER_ERROR = 500,
+    _BAD_GATEWAY = 502,
+    _GATEWAY_TIMEOUT = 504,
+    _HTTP_VERSION_NOT_SUPPORTED = 505
+};
+
+# endif // HTTP_CODES_HPP
