@@ -1,7 +1,7 @@
 #include "Config/Parser.hpp"
 #include "Cluster.hpp"
 
-bool Cluster::_end_server = false;
+// bool Cluster::_end_server = false;
 
 void	sighandler(int signum)
 {

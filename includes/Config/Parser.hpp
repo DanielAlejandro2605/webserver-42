@@ -45,6 +45,8 @@ class Parser
 		
 		/*Getters*/
 		const std::vector<Config *>&	get_configs();
+		const std::string&				get_path_file();
+		int								get_brackets_closed();
 		/*Utils*/
 		void							print_parser_timestamp(int context_number);
 		class ExpectedBracket: public std::exception {

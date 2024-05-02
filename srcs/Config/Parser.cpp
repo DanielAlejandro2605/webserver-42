@@ -249,6 +249,16 @@ const std::vector<Config *>&	Parser::get_configs()
 	return (this->_configs);
 }
 
+const std::string&				Parser::get_path_file()
+{
+	return (this->_path_file);
+}
+
+int								Parser::get_brackets_closed()
+{
+	return (this->_brackets_closed);
+}
+
 /*
 ** ---------------------------------  UTILS  ----------------------------------
 */

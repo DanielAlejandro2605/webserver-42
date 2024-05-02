@@ -6,6 +6,8 @@
 # include "HandlerRequest.hpp"
 # include "HandlerResponse.hpp"
 
+
+
 struct Client
 {
     int             	socket;
@@ -69,5 +71,7 @@ class Cluster
 		const std::vector<int>&			get_client_sockets( void ) const;
 		std::vector<struct pollfd> &	get_poll_fds( void );	
 };
+
+
 
 #endif /* ********************************************************* CLUSTER_H */

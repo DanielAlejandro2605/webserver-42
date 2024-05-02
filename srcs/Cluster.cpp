@@ -4,6 +4,8 @@
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
+bool Cluster::_end_server = false;
+
 Cluster::Cluster(std::vector <Config *> configs) : _configs(configs)
 {
 	this->_end_server = 0;
