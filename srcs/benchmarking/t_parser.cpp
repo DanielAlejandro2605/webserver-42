@@ -1,31 +1,7 @@
 #include <criterion/criterion.h>
 #include "Config/Parser.hpp"
-#include "Cluster.hpp"
 
-
-// Test(ParserConstructor, InitializeMembers) {
-//     cr_log_info("This is an informational message. They are not displayed "
-//         "by default.");
-//     cr_log_warn("This is a warning. They indicate some possible malfunction "
-//         "or misconfiguration in the test.");
-//     cr_log_error("This is an error. They indicate serious problems and "
-//         "are usually shown before the test is aborted.");
-
-//     char path[] = "test_file.txt";
-//     Parser parser(path);
-
-//     cr_assert_str_eq(parser.get_path_file().c_str(), path);
-//     cr_assert_eq(parser.get_brackets_closed(), 0);
-//     hasConfigExtension(this->_path_file)
-// }
-
-// void setup(void) {
-//     puts("Runs before the test");
-// }
-
-// void teardown(void) {
-//     puts("Runs after the test");
-// }
+/*Testing Parser constructor class*/
 
 Test(ParserHasConfigExtension, ValidExtension) {
     char path[] = "file.config";

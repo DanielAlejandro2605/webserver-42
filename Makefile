@@ -6,7 +6,7 @@
 #    By: dnieto-c <dnieto-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 22:47:31 by mflores-          #+#    #+#              #
-#    Updated: 2024/05/02 17:14:18 by dnieto-c         ###   ########.fr        #
+#    Updated: 2024/05/08 20:51:22 by dnieto-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 NAME		= webserv
 CXX			= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++11
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++11 -g
 LDFLAGS 	= -lcriterion
 RM			= rm -f
 
@@ -56,7 +56,8 @@ CONFIG_FOLDER = Config/
 #	BENCHMAKING FILES													   	   #
 #------------------------------------------------------------------------------#
 
-BENCHMAKING_FILES = t_parser t_function
+# BENCHMAKING_FILES = t_parser t_function
+BENCHMAKING_FILES = gt_server
 BENCHMAKING_FOLDER = benchmarking/
 BENCHMAKING_EXEC = test
 
@@ -73,7 +74,7 @@ SRCS_FILES 	= $(addsuffix .cpp, $(ROOT_FILES) \
 # All .o files go to objs/ directory
 OBJS_PATH 	= objs/
 OBJS_NAMES	= $(SRCS_FILES:.cpp=.o)
-OBJS_FOLDER = $(addprefix $(OBJS_PATH), $(UTILS_FOLDER) $(CONFIG_FOLDER), $(BENCHMAKING_FOLDER)) 
+OBJS_FOLDER = $(addprefix $(OBJS_PATH), $(UTILS_FOLDER) $(CONFIG_FOLDER) $(BENCHMAKING_FOLDER)) 
 OBJS		= $(addprefix $(OBJS_PATH), $(OBJS_NAMES))
 
 # c++ will create these .d files containing dependencies
@@ -83,11 +84,20 @@ DEPS		= $(addprefix $(OBJS_PATH), $(SRCS_FILES:.cpp=.d))
 #	BASCIC RULES															   #
 #------------------------------------------------------------------------------#
 
-all: header $(NAME) $(BENCHMAKING_EXEC)
+all: header $(BENCHMAKING_EXEC) $(NAME)
 	@echo "\n$(BOLD)$(GREEN)\n[ ✔ ]\t$(NAME)\n$(WHITE)"
 	@echo "$(BOLD)$(YELLOW)▶ TO LAUNCH:\t$(WHITE)./$(NAME) <config file>\n$(RESET)"
 
-$(NAME): $(HEADERS) $(OBJS)
+# $(NAME): $(HEADERS) $(filter-out $(OBJS_PATH)$(BENCHMAKING_FOLDER)gt_server.o, $(OBJS))
+# 	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $(CRITERION_INCLUDE) $(CRITERION_LINK) $(OBJS) -o $(NAME)
+
+# $(BENCHMAKING_EXEC): $(filter-out $(OBJS_PATH)main.o, $(OBJS))
+# 	@echo "\n$(BOLD)$(GREEN)\n[ ✔ ]\t$(BENCHMAKING_EXEC)\n$(WHITE)"
+# 	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $^ -o $@ $(CRITERION_INCLUDE) $(CRITERION_LINK)
+
+# $(NAME): $(HEADERS) $(OBJS)
+
+$(NAME): $(HEADERS) $(filter-out $(OBJS_PATH)$(BENCHMAKING_FOLDER)gt_server.o, $(OBJS))
 	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $(CRITERION_INCLUDE) $(CRITERION_LINK) $(OBJS) -o $(NAME)
 
 $(BENCHMAKING_EXEC): $(filter-out $(OBJS_PATH)main.o, $(OBJS))
@@ -106,8 +116,8 @@ clean:
 	fi
 	@echo "$(BOLD)$(GREEN)\n[ ✔ ]\tOBJECTS CLEANED$(RESET)"
 
-fclean:	clean
-	@if [ -e $(NAME) ]; then \
+fclean: clean
+	@if [ -e $(NAME) ] || [ -e $(BENCHMAKING_EXEC) ]; then \
 		echo "$(YELLOW)\n. . . cleaning rest . . .$(RESET)"; \
 		$(RM) $(NAME); \
 		$(RM) $(BENCHMAKING_EXEC); \
