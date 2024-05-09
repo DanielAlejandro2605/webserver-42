@@ -6,7 +6,7 @@
 #    By: dnieto-c <dnieto-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 22:47:31 by mflores-          #+#    #+#              #
-#    Updated: 2024/05/08 20:51:22 by dnieto-c         ###   ########.fr        #
+#    Updated: 2024/05/09 12:31:32 by dnieto-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ BENCHMAKING_EXEC = test
 
 CRITERION_INCLUDE = -I/usr/local/include/criterion
 CRITERION_LINK = -lcriterion
+LCURL = -lcurl
 
 SRCS_PATH = srcs/
 SRCS_FILES 	= $(addsuffix .cpp, $(ROOT_FILES) \
@@ -97,12 +98,15 @@ all: header $(BENCHMAKING_EXEC) $(NAME)
 
 # $(NAME): $(HEADERS) $(OBJS)
 
-$(NAME): $(HEADERS) $(filter-out $(OBJS_PATH)$(BENCHMAKING_FOLDER)gt_server.o, $(OBJS))
-	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $(CRITERION_INCLUDE) $(CRITERION_LINK) $(OBJS) -o $(NAME)
+# $(NAME): $(filter-out $(OBJS_PATH)$(BENCHMAKING_FOLDER)gt_server.o, $(OBJS))
+# 	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $(CRITERION_INCLUDE) $(CRITERION_LINK) $(OBJS) -o $(NAME)
+
+$(NAME): $(filter-out $(OBJS_PATH)$(BENCHMAKING_FOLDER)gt_server.o, $(OBJS))
+	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $(CRITERION_INCLUDE) $(CRITERION_LINK) $(LCURL) $^ -o $(NAME)
 
 $(BENCHMAKING_EXEC): $(filter-out $(OBJS_PATH)main.o, $(OBJS))
 	@echo "\n$(BOLD)$(GREEN)\n[ ✔ ]\t$(BENCHMAKING_EXEC)\n$(WHITE)"
-	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $^ -o $@ $(CRITERION_INCLUDE) $(CRITERION_LINK)
+	@$(CXX) $(CXXFLAGS) $(HEADERS_INC) $^ -o $@ $(CRITERION_INCLUDE) $(CRITERION_LINK) $(LCURL)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	@mkdir -p $(OBJS_FOLDER)
